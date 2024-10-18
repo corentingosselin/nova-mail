@@ -1,18 +1,35 @@
-import { ZalandoProvider } from './providers/zalando/zalando.provider';
+import { AldiProvider } from './providers/aldi.provider';
+import { AmnestyProvider } from './providers/amnesty.provider';
+import { VeilleActeurSanteProvider } from './providers/veilleacteursante.provider';
+import { RadioFranceProvider } from './providers/radiofrance.provider';
+import { UccGrandEstProvider } from './providers/uccgrandest.provider';
+import { ZalandoProvider } from './providers/zalando.provider';
+import { AltiViewProvider } from './providers/altiview.provider';
+import { DealabsProvider } from './providers/dealabs.provider';
+import { JeuConcoursProvider } from './providers/jeuconcours.provider';
+import { ConforamaProvider } from './providers/conforama.provider';
+import { GrouponProvider } from './providers/groupon.provider';
 
 const PROVIDERS = {
-  zalando: ZalandoProvider,
+  //zalando: ZalandoProvider,
+  //amnesty: AmnestyProvider,
+  //radiofrance: RadioFranceProvider
+  //aldi: AldiProvider,
+  //uccGrandEst: UccGrandEstProvider
+  //veilleActeurSante: VeilleActeurSanteProvider
+  //altiView: AltiViewProvider
+  //dealabs: DealabsProvider,
+  //jeuConcours: JeuConcoursProvider
+  //conforama: ConforamaProvider
+  groupon: GrouponProvider,
 };
 
 export function subscribe(email: string) {
-  console.log('Starting subscribe function');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const subscriptionPromises = Object.entries(PROVIDERS).map(([key, value]) => {
-    console.log(`Processing provider: ${key}`);
     const provider = new value();
-    console.log(`Instantiated provider: ${provider.constructor.name}`);
+    console.log(`Subscribing to ${key} newsletter`);
     return provider.subscribe(email);
   });
-
-  console.log('Subscription promises created:', subscriptionPromises);
   return Promise.all(subscriptionPromises);
 }

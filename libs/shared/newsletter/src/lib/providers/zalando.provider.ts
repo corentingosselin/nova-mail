@@ -1,4 +1,5 @@
-import { INewsletterProvider } from '../../newsletter-provider.interface';
+import { INewsletterProvider } from '../newsletter-provider.interface';
+import { faker } from '@faker-js/faker';
 import axios from 'axios';
 
 export class ZalandoProvider implements INewsletterProvider {
@@ -35,23 +36,18 @@ export class ZalandoProvider implements INewsletterProvider {
           headers: {
             'Content-Type': 'application/json',
             Accept: '*/*',
-            'User-Agent':
-              'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
-           
+            'User-Agent': faker.internet.userAgent(),
           },
         })
         .then((response) => {
-          console.log('test', response.data);
-          //check 200 status
           return response.status === 200;
         })
-        .catch((error) => {
-          console.log('error', error);
+        .catch(() => {
           return false;
         });
     } catch (error) {
-      console.error('Error in ZalandoProvider.subscribe:', error);
-      throw error; // Re-throw to let Promise.all handle it
+      console.error(`[${this.constructor.name} / SUBSCRIBE] error:`, error);
+      throw error;
     }
   }
 }

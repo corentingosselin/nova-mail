@@ -1,4 +1,4 @@
-import { ZalandoProvider } from './zalando.provider';
+import { ZalandoProvider } from '../zalando.provider';
 import { faker } from '@faker-js/faker';
 
 const randomEmail = faker.internet.email();
